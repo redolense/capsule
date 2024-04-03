@@ -17,9 +17,9 @@ def translate_text_with_openai(text, target_language):
   Returns:
       The translated text.
   """
-  response = openai.Edit.create(
+  response = openai.Completion.create(
       model="gpt-3.5-turbo-instruct", 
-      input="Translate the following text into " + target_language + ": " + text,
+      prompt="Translate the following text into " + target_language + ": " + text,
       max_tokens=150,
   )
   translated_text = response.choices[0].text.strip()
