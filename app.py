@@ -3,10 +3,8 @@ import streamlit as st
 from googletrans import Translator
 
 # Function to translate text
-def translate_text(text, source_lang, target_lang, api_key):
+def translate_text(text, source_lang, target_lang):
     translator = Translator()
-    translator.raise_Exception = True
-    translator.headers['x-rapidapi-key'] = api_key
     translated_text = translator.translate(text, src=source_lang, dest=target_lang)
     return translated_text.text
 
@@ -23,17 +21,14 @@ def main():
     # Get user input for the target language
     target_language = st.text_input("Enter the target language (e.g., fr for French)")
 
-    # Get user input for the Google API key
-    api_key = st.text_input("AIzaSyAswazooGQyBqdOrfY_sjhEo2CKvY9WMRo")
-
     # Translate the text when the user clicks the translate button
     if st.button("Translate"):
-        if text_to_translate and source_language and target_language and api_key:
-            translated_text = translate_text(text_to_translate, source_language, target_language, api_key)
+        if text_to_translate and source_language and target_language:
+            translated_text = translate_text(text_to_translate, source_language, target_language)
             st.write("Translated Text:")
             st.write(translated_text)
         else:
-            st.warning("Please enter the text to be translated, source/target languages, and the Google API key.")
+            st.warning("Please enter the text to be translated, source language, and target language.")
 
 # Run the main function
 if __name__ == "__main__":
